@@ -1,7 +1,7 @@
 Google Maps Downloader
 ================================
 *загрузчик карт любого размера с Google Maps по заданным координатам и масштабу*
-![Google Maps Downloader](http://i.imgur.com/ydPSMkD.png)
+![Google Maps Downloader](https://github.com/oQue/GoogleMapsDownloader/blob/master/Examples/Interface.png)
 
 Реализованные функции
 -------------------------
@@ -26,4 +26,5 @@ javac -cp ../lib/*:. MapsDownloader.java
 
 
 Пример результата работы
-![Google Maps Downloader](http://i.imgur.com/g1LAYzu.jpg)
+![Google Maps Downloader](https://raw.githubusercontent.com/oQue/GoogleMapsDownloader/master/Examples/MoscowUniversity.jpeg)
+![Google Maps Downloader](https://raw.githubusercontent.com/oQue/GoogleMapsDownloader/master/Examples/EiffelTower.png)
