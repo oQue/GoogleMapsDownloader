@@ -33,7 +33,7 @@ public class GoogleMap {
         /**
          * @param imageUrl - string, url of image
          * @param fileName - string, name of file to save image to
-         * saves image from provided url to a local file in tiles/ folder
+         * saves image from provided url to a local file in temp/ folder
          */
         File dir = new File(destinationFolder + "/temp/");
         if (!dir.exists()) {
@@ -99,6 +99,7 @@ public class GoogleMap {
                     } catch (Exception e) {
                         // change proxy
                         Proxy.setProxy();
+                        attempt++;
                     }
                 }
                 attempt = 0;
