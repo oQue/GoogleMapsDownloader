@@ -1,0 +1,5 @@
+*.class
+.mtj.tmp/
+*.war
+*.ear
+hs_err_pid*
