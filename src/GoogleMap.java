@@ -102,6 +102,8 @@ public class GoogleMap {
                         attempt++;
                     }
                 }
+                if (attempt == 5)
+                    throw new InterruptedException();
                 attempt = 0;
                 lonCounter++;
                 c++;
