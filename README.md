@@ -21,8 +21,9 @@ Google Maps Downloader
 * JSoup для парсинга сайтов с прокси-серверами
 
 -------------------------
-Сборка из папки src консольной командой
-*javac -cp ../lib/*:. MapsDownloader.java*
+Сборка из папки src консольной командой <br>
+javac -cp ../lib/*:. MapsDownloader.java
+
 
 Пример результата работы
 ![Google Maps Downloader](http://i.imgur.com/g1LAYzu.jpg)
