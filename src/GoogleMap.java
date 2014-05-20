@@ -74,7 +74,6 @@ public class GoogleMap {
         images = new ArrayList<String>();
 
         MapTile current;
-        int attempt = 0; // will try to download image 5 times using different proxies
 
         int total = this.getNumTiles();
         int c = 1;
@@ -85,7 +84,7 @@ public class GoogleMap {
             for (int j = start.y; j <= end.y; j++) {
                 current = new MapTile(i, j, start.z);
                 System.out.println("Downloading image " + c + " out of " + total);
-                while (attempt < 5) {
+                while (true) {
                     try {
                         long startTime = System.currentTimeMillis();
                         saveImage(current.tileURL(), ("image_" + lonCounter + "_" + latCounter + ".jpg"));
@@ -99,12 +98,8 @@ public class GoogleMap {
                     } catch (Exception e) {
                         // change proxy
                         Proxy.setProxy();
-                        attempt++;
                     }
                 }
-                if (attempt == 5)
-                    throw new InterruptedException();
-                attempt = 0;
                 lonCounter++;
                 c++;
                 Thread.sleep(100); // delay. Google bans ip very quickly
