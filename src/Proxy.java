@@ -69,8 +69,10 @@ public class Proxy {
             System.setProperty("http.proxyHost", proxies.get(usedProxy).split(":")[0]);
             System.setProperty("http.proxyPort", proxies.get(usedProxy).split(":")[1]);
             usedProxy++;
-            if (usedProxy == proxies.size()-1)
+            if (usedProxy == proxies.size()-1) {
                 proxies = getList();
+                usedProxy = 0;
+            }
             alreadyChanged = true;
         }
     }
