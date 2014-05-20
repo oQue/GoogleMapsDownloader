@@ -35,14 +35,19 @@ public class GoogleMap {
          * @param fileName - string, name of file to save image to
          * saves image from provided url to a local file in temp/ folder
          */
-        File dir = new File(destinationFolder + "/temp/");
+        String tempFolder;
+        if ( System.getProperty("os.name").toLowerCase().contains("win") )
+            tempFolder = "\\temp\\";
+        else
+            tempFolder = "/temp/";
+        File dir = new File(destinationFolder + tempFolder);
         if (!dir.exists()) {
             dir.mkdir();
         }
 
         URL url = new URL(imageUrl);
         InputStream is = url.openStream();
-        OutputStream os = new FileOutputStream(destinationFolder + "/temp/" + fileName);
+        OutputStream os = new FileOutputStream(destinationFolder + tempFolder + fileName);
 
         byte[] b = new byte[2048];
         int length;
@@ -121,8 +126,14 @@ public class GoogleMap {
 
         System.out.println("Merging tiles into one image....");
 
+        String tempFolder;
+        if ( System.getProperty("os.name").toLowerCase().contains("win") )
+            tempFolder = "\\temp\\";
+        else
+            tempFolder = "/temp/";
+
         for (String image : images) {
-            File current = new File(destinationFolder + "/temp/" + image);
+            File current = new File(destinationFolder + tempFolder + image);
             BufferedImage bi = ImageIO.read(current);
             g.drawImage(bi, x, y, null);
             y += 256;
@@ -133,7 +144,7 @@ public class GoogleMap {
             current.delete();
         }
 
-        File dir = new File(destinationFolder + "/temp");
+        File dir = new File(destinationFolder + tempFolder);
 
         if(dir.list().length == 0)
             dir.delete();
