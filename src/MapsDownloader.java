@@ -13,6 +13,7 @@ public class MapsDownloader extends JPanel {
     static JSlider zoomLevel;
     static GoogleMap map;
     static JFileChooser f;
+    static JButton createButton;
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -64,6 +65,7 @@ public class MapsDownloader extends JPanel {
 
         public void actionPerformed(ActionEvent e) {
 
+            createButton.setEnabled(false);
             Thread t = new Thread(new Runnable() {
                 public void run() {
 
@@ -71,6 +73,7 @@ public class MapsDownloader extends JPanel {
                         initMap("./");
                         f = null;
                         f = new JFileChooser();
+                        System.out.println(""); // for some reason it fixes create button behaviour
                         f.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
                         f.setDialogTitle("Location to save image");
                         int result = f.showSaveDialog(null);
@@ -85,7 +88,6 @@ public class MapsDownloader extends JPanel {
                     } catch (IllegalArgumentException ex) {
                         System.out.println("Provide coordinates of north-west and south-east corners.\n" +
                                 "Format: 0.0000,0.0000");
-                        //System.out.println(ex.toString());
                     } catch (IOException ex) {
                         System.out.println("Check your Internet connection");
                         return;
@@ -95,7 +97,7 @@ public class MapsDownloader extends JPanel {
                     }
                     SwingUtilities.invokeLater(new Runnable() {
                         public void run() {
-                            console.repaint();
+                            createButton.setEnabled(true);
                         }
                     });
                 }
@@ -114,7 +116,6 @@ public class MapsDownloader extends JPanel {
             catch (IllegalArgumentException ex) {
                 System.out.println("Provide coordinates of north-west and south-east corners.\n" +
                         "Format: 0.0000,0.0000");
-                //System.out.println(ex.toString());
             }
         }
     }
@@ -127,7 +128,7 @@ public class MapsDownloader extends JPanel {
         JLabel endLabel = new javax.swing.JLabel("South-East Coordinates");
         JLabel zoomLabel = new javax.swing.JLabel("Zoom Level");
         JButton calculateButton = new javax.swing.JButton("Get map dimensions");
-        JButton createButton = new javax.swing.JButton("Create map");
+        createButton = new javax.swing.JButton("Create map");
         zoomLevel = new javax.swing.JSlider(10, 22, 16);
         startTextField = new javax.swing.JTextField("N-W coord");
         endTextField = new javax.swing.JTextField("S-E coord");
