@@ -151,7 +151,8 @@ public class GoogleMap {
 
         ImageIO.write(result, "png", new File(destinationFolder + "/result.png"));
 
-        System.out.println("Done. Merged image can be found at " + destinationFolder + "/result.png");
+        String slash = System.getProperty("os.name").toLowerCase().contains("win") ? "\\" : "/";
+        System.out.println("Done. Merged image can be found at " + destinationFolder + slash + "result.png");
     }
 
     public int getNumTiles() {

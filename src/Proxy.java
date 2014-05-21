@@ -118,6 +118,9 @@ public class Proxy {
     public static void main(String[] args) {
         try {
             System.out.println("Your IP: " + IP);
+            proxies = getList();
+            for (String p : proxies)
+                System.out.println(p);
             setProxy();
             System.out.println("Your current IP: " + getIP());
             System.out.println("Proxy is working: " + isWorking());

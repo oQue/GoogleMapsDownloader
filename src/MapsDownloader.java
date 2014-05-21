@@ -75,7 +75,10 @@ public class MapsDownloader extends JPanel {
                         f.setDialogTitle("Location to save image");
                         int result = f.showSaveDialog(null);
                         if (result == JFileChooser.APPROVE_OPTION) {
-                            initMap(f.getCurrentDirectory().toString());
+                            if ( System.getProperty("os.name").toLowerCase().contains("win") )
+                                initMap(f.getSelectedFile().toString());
+                            else
+                                initMap(f.getCurrentDirectory().toString());
                             map.bulkDownload();
                             map.mergeImages();
                         }
