@@ -15,13 +15,17 @@ public class GoogleMap {
     public GoogleMap(MapTile start, MapTile end, String dest) {
         this.start = start;
         this.end = end;
+        if (start.x > end.x || start.y > end.y)
+            throw new IllegalArgumentException();
         destinationFolder = dest;
         height = end.y - start.y + 1;
         width = end.x - start.x + 1;
     }
 
     public GoogleMap(double startLat, double startLon, double endLat,
-                     double endLon, int zoom, String dest) {
+                     double endLon, int zoom, String dest) throws IllegalArgumentException {
+        if (startLat < endLat || startLon > endLon)
+            throw new IllegalArgumentException();
         start = new MapTile(startLat, startLon, zoom);
         end = new MapTile(endLat, endLon, zoom);
         destinationFolder = dest;
@@ -72,15 +76,13 @@ public class GoogleMap {
 
         Proxy.setProxy();
 
-        if (start.x > end.x || start.y > end.y)
-            throw new IllegalArgumentException();
         int latCounter = 0;
         int lonCounter = 0;
         images = new ArrayList<String>();
 
         MapTile current;
 
-        int total = this.getNumTiles();
+        long total = this.getNumTiles();
         int c = 1;
 
         System.out.println("Downloading images...");
@@ -155,8 +157,8 @@ public class GoogleMap {
         System.out.println("Done. Merged image can be found at " + destinationFolder + slash + "result.png");
     }
 
-    public int getNumTiles() {
-        return (end.y - start.y + 1) * (end.x - start.x + 1);
+    public long getNumTiles() {
+        return Math.abs( (end.y - start.y + 1) * (end.x - start.x + 1) );
     }
 
     public int getWidth() {

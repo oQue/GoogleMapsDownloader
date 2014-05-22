@@ -52,13 +52,7 @@ public class MapsDownloader extends JPanel {
         endLat = Double.parseDouble(endTextField.getText().split(",")[0]);
         endLon = Double.parseDouble(endTextField.getText().split(",")[1]);
         int zoom = zoomLevel.getValue();
-
-        if (startLat >= endLat && startLon <= endLon) {
-            map = new GoogleMap(startLat, startLon, endLat, endLon, zoom, destination);
-        }
-        else {
-            throw new IllegalArgumentException();
-        }
+        map = new GoogleMap(startLat, startLon, endLat, endLon, zoom, destination);
     }
 
     private static class CreateButtonHandler implements ActionListener {
@@ -87,7 +81,8 @@ public class MapsDownloader extends JPanel {
                         }
                     } catch (IllegalArgumentException ex) {
                         System.out.println("Provide coordinates of north-west and south-east corners.\n" +
-                                "Format: 0.0000,0.0000");
+                                "Format: 0.0000,0.0000. Be sure that\n" + "n-w lat >= s-e lat AND n-w lon " +
+                                "<= s-e lon");
                     } catch (IOException ex) {
                         System.out.println("Check your Internet connection");
                         return;
@@ -115,7 +110,8 @@ public class MapsDownloader extends JPanel {
             }
             catch (IllegalArgumentException ex) {
                 System.out.println("Provide coordinates of north-west and south-east corners.\n" +
-                        "Format: 0.0000,0.0000");
+                        "Format: 0.0000,0.0000. Be sure that\n" + "n-w lat >= s-e lat AND n-w lon " +
+                        "<= s-e lon");
             }
         }
     }

@@ -9,6 +9,8 @@ public class MapTile {
     }
 
     MapTile(double lat, double lon, int zoom) {
+        if (lat > 90 || lat < -90 || lon > 180 || lon < -180)
+            throw new IllegalArgumentException();
         x = (int)(Math.pow(2, zoom)*(lon+180)/360/2);
         y = (int)(-(.5*Math.log((1+Math.sin(Math.toRadians(lat)))/(1-Math.sin(Math.toRadians(lat))))/Math.PI-1)*
                 Math.pow(2, zoom-1)/2);
