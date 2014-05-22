@@ -15,10 +15,6 @@ public class MapsDownloader extends JPanel {
     static JFileChooser f;
     static JButton createButton;
 
-    public void paintComponent(Graphics g) {
-        super.paintComponent(g);
-    }
-
     private static void updateTextArea(final String text) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
