@@ -127,15 +127,6 @@ public class MapsDownloader extends JPanel {
         console = new javax.swing.JTextArea();
         JScrollPane scroll = new JScrollPane(console);
 
-        zoomLevel.setLabelTable( zoomLevel.createStandardLabels(3) );
-        zoomLevel.setMinorTickSpacing(1);
-        zoomLevel.setPaintTicks(true);
-        zoomLevel.setPaintLabels(true);
-
-        console.setColumns(25);
-        console.setRows(10);
-        console.setEditable(false);
-
         CreateButtonHandler create = new CreateButtonHandler();
         createButton.addActionListener(create);
 
