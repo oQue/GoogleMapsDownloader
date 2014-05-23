@@ -38,7 +38,7 @@ public class MapsDownloader extends JPanel {
             }
         };
         System.setOut(new PrintStream(out, true));
-        //System.setErr(new PrintStream(out, true));
+        System.setErr(new PrintStream(out, true));
     }
 
     private static void initMap(String destination) throws IllegalArgumentException {
@@ -146,30 +146,22 @@ public class MapsDownloader extends JPanel {
 
         JPanel pane = new JPanel(new BorderLayout(10, 10));
         pane.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-
-        JPanel north = new JPanel(new BorderLayout(10, 10));
-        JPanel northFields = new JPanel(new GridLayout(0, 2));
-        JPanel northButtons = new JPanel(new FlowLayout());
-
+        JPanel north = new JPanel(new GridLayout(0, 2));
         pane.add(north, BorderLayout.NORTH);
-        pane.add(scroll, BorderLayout.CENTER);
+        pane.add(scroll, BorderLayout.CENTER);;
 
-        north.add(northFields, BorderLayout.NORTH);
-        north.add(northButtons, BorderLayout.CENTER);
-
-        northFields.add(startLabel);
-        northFields.add(startTextField);
-        northFields.add(endLabel);
-        northFields.add(endTextField);
-        northFields.add(zoomLabel);
-        northFields.add(zoomLevel);
-
-        northButtons.add(calculateButton);
-        northButtons.add(createButton);
+        north.add(startLabel);
+        north.add(startTextField);
+        north.add(endLabel);
+        north.add(endTextField);
+        north.add(zoomLabel);
+        north.add(zoomLevel);
+        north.add(calculateButton);
+        north.add(createButton);
 
         JFrame window = new JFrame("Easy Google Maps Downloader");
         window.setContentPane(pane);
-        window.setSize(450, 400);
+        window.setSize(550, 400);
         window.setLocation(100, 100);
         window.setVisible(true);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
