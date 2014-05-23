@@ -127,6 +127,15 @@ public class MapsDownloader extends JPanel {
         console = new javax.swing.JTextArea();
         JScrollPane scroll = new JScrollPane(console);
 
+        zoomLevel.setLabelTable( zoomLevel.createStandardLabels(3) );
+        zoomLevel.setMinorTickSpacing(1);
+        zoomLevel.setPaintTicks(true);
+        zoomLevel.setPaintLabels(true);
+
+        console.setColumns(25);
+        console.setRows(10);
+        console.setEditable(false);
+
         CreateButtonHandler create = new CreateButtonHandler();
         createButton.addActionListener(create);
 
@@ -144,39 +153,35 @@ public class MapsDownloader extends JPanel {
 
         scroll.setVerticalScrollBarPolicy ( ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS );
 
-        JPanel content = new JPanel();
-        content.setLayout(new GridLayout(0, 1, 7, 7) );
-        content.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        JPanel north = new JPanel();
-        north.setLayout(new GridLayout(0, 2, 7, 7));
-        JPanel center = new JPanel();
-        center.setLayout(new GridLayout(0, 1, 7, 7));
-        JPanel south = new JPanel();
-        south.setLayout(new BorderLayout());
+        JPanel pane = new JPanel(new BorderLayout(10, 10));
+        pane.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        content.add(north);
-        content.add(center);
-        content.add(south);
+        JPanel north = new JPanel(new BorderLayout(10, 10));
+        JPanel northFields = new JPanel(new GridLayout(0, 2));
+        JPanel northButtons = new JPanel(new FlowLayout());
 
-        north.add(startLabel);
-        north.add(startTextField);
-        north.add(endLabel);
-        north.add(endTextField);
-        north.add(zoomLabel);
-        north.add(zoomLevel);
+        pane.add(north, BorderLayout.NORTH);
+        pane.add(scroll, BorderLayout.CENTER);
 
-        center.add(calculateButton);
-        center.add(createButton);
+        north.add(northFields, BorderLayout.NORTH);
+        north.add(northButtons, BorderLayout.CENTER);
 
-        south.add(scroll, BorderLayout.CENTER);
+        northFields.add(startLabel);
+        northFields.add(startTextField);
+        northFields.add(endLabel);
+        northFields.add(endTextField);
+        northFields.add(zoomLabel);
+        northFields.add(zoomLevel);
+
+        northButtons.add(calculateButton);
+        northButtons.add(createButton);
 
         JFrame window = new JFrame("Easy Google Maps Downloader");
-        window.setContentPane(content);
-        window.setSize(550, 400);
+        window.setContentPane(pane);
+        window.setSize(450, 400);
         window.setLocation(100, 100);
         window.setVisible(true);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
     }
 
 }
