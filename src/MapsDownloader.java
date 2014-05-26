@@ -146,7 +146,7 @@ public class MapsDownloader extends JPanel {
 
         JPanel pane = new JPanel(new BorderLayout(10, 10));
         pane.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        JPanel north = new JPanel(new GridLayout(0, 2));
+        JPanel north = new JPanel(new GridLayout(0, 2, 5, 5));
         pane.add(north, BorderLayout.NORTH);
         pane.add(scroll, BorderLayout.CENTER);;
 
