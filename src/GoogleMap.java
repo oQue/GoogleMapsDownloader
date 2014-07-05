@@ -74,7 +74,7 @@ public class GoogleMap {
          * uses proxy to bypass banning of IP
          */
 
-        Proxy.setProxy();
+        //Proxy.setProxy();
 
         int latCounter = 0;
         int lonCounter = 0;
@@ -97,19 +97,19 @@ public class GoogleMap {
                         saveImage(current.tileURL(), ("image_" + lonCounter + "_" + latCounter + ".jpg"));
                         images.add("image_" + lonCounter + "_" + latCounter + ".jpg");
                         long endTime = System.currentTimeMillis();
-                        if ( (endTime - startTime) / 1000 > 2) { // more than 2 seconds to download a tile
+                        /*if ( (endTime - startTime) / 1000 > 2) { // more than 2 seconds to download a tile
                             // change proxy
                             Proxy.setProxy();
-                        }
+                        }*/
                         break;
                     } catch (Exception e) {
                         // change proxy
-                        Proxy.setProxy();
+                        //Proxy.setProxy();
                     }
                 }
                 lonCounter++;
                 c++;
-                Thread.sleep(100); // delay. Google bans ip very quickly
+                Thread.sleep(1000); // delay. Google bans ip very quickly
             }
             lonCounter = 0;
             latCounter++;
@@ -141,7 +141,7 @@ public class GoogleMap {
             y += 256;
             if (y >= result.getHeight()){
                 y = 0;
-                x += bi.getHeight();
+                x += bi.getWidth();
             }
             current.delete();
         }
