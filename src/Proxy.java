@@ -15,44 +15,44 @@ public class Proxy {
 
     private static ArrayList<String> getList() throws IOException {
         usedProxy = 0;
-        // by http://javatalks.ru/topics/36952
         proxies = new ArrayList<String>();
         Document doc;
         if (page == 1) {
-            doc = Jsoup.connect("http://hidemyass.com/proxy-list/").get();
+            doc = Jsoup.connect("http://proxylist.hidemyass.com/").get();
         }
         else {
-            doc = Jsoup.connect("http://hidemyass.com/proxy-list/" + page).get();
+            doc = Jsoup.connect("http://proxylist.hidemyass.com/" + page + "#listable").get();
         }
         page++;
-        Elements trs = doc.select("#listtable tbody > tr");
+        Elements trs = doc.select("#listable tbody > tr");
         for (Element tr : trs)
         {
             String port = null;
             String ip = null;
 
-            Elements tds = tr.select("td:gt(0):lt(3)");
+            Elements tds = tr.select("td");
             for (Element td : tds)
             {
                 Elements style = td.select("style");
                 if(style.isEmpty())
                 {
-                    port = td.text();
+                    // if text inside <td></td> is number - it is port
+                    if (td.text().matches("\\d+"))
+                        port = td.text();
                 }
                 else
                 {
-                    // в блоке <style></style> перечислены "невидимые" классы, они создают шум - защита от парсинга
-                    String unvizClasses = style.first().data()
+                    // find invisible classes
+                    String invisClasses = style.first().data()
                             .replaceAll("\\..*?\\{display:inline\\}|\n|\r", "")
                             .replaceAll("\\{.*?\\}|^\\.", "")
                             .replaceAll("\\.", "|");
-
-                    // Теперь получаем блок с ip удаляем мусор и шум - защиту.
+                    // Remove noise, invisible elements, get IP
                     Element els = td.select("span").first();
                     ip = els.html()
                             .replaceAll("\n|\r", "")
                             .replaceAll("\\<style\\>.*?\\</style\\>|\\<(span|div) style=\"display:none\"\\>.*?\\</(span|div)\\>", "")
-                            .replaceAll("\\<(span|div) class=\"(" + unvizClasses + ")\"\\>.*?\\</(span|div)\\>", "")
+                            .replaceAll("\\<(span|div) class=\"(" + invisClasses + ")\"\\>.*?\\</(span|div)\\>", "")
                             .replaceAll("\\<.*?\\>| ", "");
                 }
             }

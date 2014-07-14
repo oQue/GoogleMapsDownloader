@@ -14,6 +14,7 @@ public class MapsDownloader extends JPanel {
     static GoogleMap map;
     static JFileChooser f;
     static JButton createButton;
+    static JCheckBox useProxy;
 
     private static void updateTextArea(final String text) {
         SwingUtilities.invokeLater(new Runnable() {
@@ -72,7 +73,7 @@ public class MapsDownloader extends JPanel {
                                 initMap(f.getSelectedFile().toString());
                             else
                                 initMap(f.getCurrentDirectory().toString());
-                            map.bulkDownload();
+                            map.bulkDownload(useProxy.isEnabled());
                             map.mergeImages();
                         }
                     } catch (IllegalArgumentException ex) {
@@ -116,14 +117,17 @@ public class MapsDownloader extends JPanel {
 
         redirectSystemStreams();
 
-        JLabel startLabel = new javax.swing.JLabel("North-West Coordinates");
-        JLabel endLabel = new javax.swing.JLabel("South-East Coordinates");
-        JLabel zoomLabel = new javax.swing.JLabel("Zoom Level");
+        JLabel startLabel = new JLabel("North-West Coordinates");
+        JLabel endLabel = new JLabel("South-East Coordinates");
+        JLabel zoomLabel = new JLabel("Zoom Level");
+        JLabel proxyLabel = new JLabel("Use proxy? (safer, but slower)");
+
         JButton calculateButton = new javax.swing.JButton("Get map dimensions");
         createButton = new javax.swing.JButton("Create map");
         zoomLevel = new javax.swing.JSlider(10, 22, 16);
         startTextField = new javax.swing.JTextField("N-W coord");
         endTextField = new javax.swing.JTextField("S-E coord");
+        useProxy = new JCheckBox();
         console = new javax.swing.JTextArea();
         JScrollPane scroll = new JScrollPane(console);
 
@@ -137,6 +141,9 @@ public class MapsDownloader extends JPanel {
         zoomLevel.setMinorTickSpacing(1);
         zoomLevel.setPaintTicks(true);
         zoomLevel.setPaintLabels(true);
+
+        useProxy.setSelected(true);
+        useProxy.setHorizontalAlignment(JCheckBox.CENTER);
 
         console.setColumns(25);
         console.setRows(10);
@@ -156,12 +163,14 @@ public class MapsDownloader extends JPanel {
         north.add(endTextField);
         north.add(zoomLabel);
         north.add(zoomLevel);
+        north.add(proxyLabel);
+        north.add(useProxy);
         north.add(calculateButton);
         north.add(createButton);
 
         JFrame window = new JFrame("Easy Google Maps Downloader");
         window.setContentPane(pane);
-        window.setSize(550, 400);
+        window.setSize(550, 550);
         window.setLocation(100, 100);
         window.setVisible(true);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

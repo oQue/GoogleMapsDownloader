@@ -64,7 +64,7 @@ public class GoogleMap {
         os.close();
     }
 
-    public void bulkDownload()
+    public void bulkDownload(boolean proxyEnabled)
             throws IOException, InterruptedException {
         /**
          * @param start - north-west tile of map
@@ -74,7 +74,8 @@ public class GoogleMap {
          * uses proxy to bypass banning of IP
          */
 
-        //Proxy.setProxy();
+        if (proxyEnabled)
+            Proxy.setProxy();
 
         int latCounter = 0;
         int lonCounter = 0;
@@ -97,19 +98,22 @@ public class GoogleMap {
                         saveImage(current.tileURL(), ("image_" + lonCounter + "_" + latCounter + ".jpg"));
                         images.add("image_" + lonCounter + "_" + latCounter + ".jpg");
                         long endTime = System.currentTimeMillis();
-                        /*if ( (endTime - startTime) / 1000 > 2) { // more than 2 seconds to download a tile
-                            // change proxy
+                        if ( proxyEnabled && (endTime - startTime) / 1000 > 2) {
+                            // more than 2 seconds to download a tile -> change proxy
                             Proxy.setProxy();
-                        }*/
+                        }
                         break;
                     } catch (Exception e) {
-                        // change proxy
-                        //Proxy.setProxy();
+                        if (proxyEnabled)
+                            Proxy.setProxy();
                     }
                 }
                 lonCounter++;
                 c++;
-                Thread.sleep(1000); // delay. Google bans ip very quickly
+                if (proxyEnabled)
+                    Thread.sleep(500);
+                else
+                    Thread.sleep(1000); // delay. Google bans ip very quickly
             }
             lonCounter = 0;
             latCounter++;
