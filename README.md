@@ -1,32 +1,38 @@
 Google Maps Downloader
 ================================
 
-hidemyass.com изменил адрес с прокси, использование прокси временно отключено, увеличен интервал между загрузкой изображений
-
-*загрузчик карт любого размера с Google Maps по заданным координатам и масштабу*
+*download maps from Google of any size by given coordinates and zoom level*
 ![Google Maps Downloader](/Examples/Interface.png)
 
-Реализованные функции
+Recent changes
 -------------------------
-* подсчет размера изображения при заданных координатах и масштабе
-* скачивание и склеивание тайлов (в заданную пользователем директорию)
-* использование публичных прокси во избежание блокировки по IP
-* вывод в консоль прогресса
+* fixed proxy issue
+* new checkbox for proxy (disabling can cause 24 hour ban from Google, use at your own risk)
 
-Известные баги
+Functionality
 -------------------------
-* Прокси могут заметно замедлить процесс (нет фильтрации по скорости)
-* При прерывании процесса все изображения будут скачиваться заново
+* count the size of final map image
+* download and merge map tiles in a given directory
+* use public proxy to avoid ban of IP from Google
+* GUI prints progress in built-in console
 
-Использованные внешние библиотеки
+Known issues
 -------------------------
-* JSoup для парсинга сайтов с прокси-серверами
+* Program crashes when merging really big images (1500+ tiles)
+* If program crashed or process is interrupted you will have to repeat downloading from beginning
+
+Used external libraries
+-------------------------
+* JSoup for parsing proxy
 
 -------------------------
-Сборка из папки src консольной командой <br>
+Compilation from /src folder <br>
+*nix:*
 javac -cp ../lib/*:. MapsDownloader.java
+*win:*
+javac -cp ../lib/*;. MapsDownloader.java
 
 
-Пример результата работы в папке Examples
+Full sized example images can be found in /Example folder
 ![MSU](Examples/MoscowUniversity_preview.jpeg)
 ![Eiffel Tower](Examples/EiffelTower_preview.png)
