@@ -73,7 +73,7 @@ public class MapsDownloader extends JPanel {
                                 initMap(f.getSelectedFile().toString());
                             else
                                 initMap(f.getCurrentDirectory().toString());
-                            map.bulkDownload(useProxy.isEnabled());
+                            map.bulkDownload(useProxy.isSelected());
                             map.mergeImages();
                         }
                     } catch (IllegalArgumentException ex) {
