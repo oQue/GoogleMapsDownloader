@@ -2,6 +2,7 @@ Google Maps Downloader
 ================================
 
 *download maps from Google of any size by given coordinates and zoom level*
+
 ![Google Maps Downloader](/Examples/Interface.png)
 
 Recent changes
@@ -26,10 +27,12 @@ Used external libraries
 * JSoup for parsing proxy
 
 -------------------------
-Compilation from /src folder <br>
-*nix:*
+Compilation from /src folder
+
+*nix:* <br>
 javac -cp ../lib/*:. MapsDownloader.java
-*win:*
+
+*win:* <br>
 javac -cp ../lib/*;. MapsDownloader.java
 
 
