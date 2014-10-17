@@ -104,7 +104,7 @@ public class Proxy {
                 try {
                     doc = Jsoup.connect("http://www.whatismyip.com/").get();
                     return doc.select(".the-ip").first().text();
-                } catch (IOException ex) { }
+                } catch (Exception ex) { }
             }
             attempt++;
         }

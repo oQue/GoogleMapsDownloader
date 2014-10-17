@@ -2,8 +2,8 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
-import java.net.URL;
 import java.util.ArrayList;
+import java.util.concurrent.*;
 
 public class GoogleMap {
 
@@ -49,27 +49,41 @@ public class GoogleMap {
             dir.mkdir();
         }
 
-        URL url = new URL(imageUrl);
-        InputStream is = url.openStream();
-        OutputStream os = new FileOutputStream(destinationFolder + tempFolder + fileName);
+        ExecutorService executor;
+        Future<InputStream> future;
+        boolean downloaded = false;
+        while (!downloaded) {
+            executor = Executors.newSingleThreadExecutor();
+            future = executor.submit(new TimeoutURL(imageUrl));
+            InputStream is;
+            try {
+                is = (future.get(3, TimeUnit.SECONDS));
+                executor.shutdownNow();
+                OutputStream os = new FileOutputStream(destinationFolder + tempFolder + fileName);
 
-        byte[] b = new byte[2048];
-        int length;
+                byte[] b = new byte[2048];
+                int length;
 
-        while ((length = is.read(b)) != -1) {
-            os.write(b, 0, length);
+                while ((length = is.read(b)) != -1) {
+                    os.write(b, 0, length);
+                }
+
+                is.close();
+                os.close();
+                downloaded = true;
+            } catch (TimeoutException e) {
+                Proxy.setProxy();
+            } catch (Exception e) {
+            } finally {
+                executor.shutdownNow();
+            }
         }
-
-        is.close();
-        os.close();
     }
 
     public void bulkDownload(boolean proxyEnabled)
             throws IOException, InterruptedException {
         /**
-         * @param start - north-west tile of map
-         * @param end - south-east tile of map
-         * @return an array of strings with titles of downloaded images
+         * @param proxyEnabled - boolean, uses proxy to download maps if set to true
          * downloads images of tiles in a given area from west to east from north to south
          * uses proxy to bypass banning of IP
          */
