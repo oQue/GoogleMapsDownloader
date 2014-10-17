@@ -116,6 +116,12 @@ public class MapsDownloader extends JPanel {
     }
 
     public static void main(String[] args) {
+        try {
+            UIManager.setLookAndFeel(
+                    UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         redirectSystemStreams();
 
@@ -150,6 +156,7 @@ public class MapsDownloader extends JPanel {
         console.setColumns(25);
         console.setRows(10);
         console.setEditable(false);
+        console.setFont(new Font("Arial", 0, 12));
 
         scroll.setVerticalScrollBarPolicy ( ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS );
 
