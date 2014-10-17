@@ -7,6 +7,7 @@ Google Maps Downloader
 
 Recent changes
 -------------------------
+* project moved to apache maven
 * fixed proxy issue
 * new checkbox for proxy (disabling can cause 24 hour ban from Google, use at your own risk)
 
@@ -27,14 +28,7 @@ Used external libraries
 * JSoup for parsing proxy
 
 -------------------------
-Compilation from /src folder
-
-*nix:* <br>
-javac -cp ../lib/*:. MapsDownloader.java
-
-*win:* <br>
-javac -cp ../lib/*;. MapsDownloader.java
-
+Use mvn install to compile an executable jar in target folder
 
 Full sized example images can be found in /Example folder
 ![MSU](Examples/MoscowUniversity_preview.jpeg)
