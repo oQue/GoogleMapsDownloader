@@ -1,5 +1,8 @@
+package me.oque;
+
 import org.junit.*;
 import org.junit.Assert.*;
+import me.oque.GoogleMap;
 
 public class GoogleMapTest {
 

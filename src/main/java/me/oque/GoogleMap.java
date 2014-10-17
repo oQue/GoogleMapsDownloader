@@ -1,3 +1,5 @@
+package me.oque;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -108,14 +110,8 @@ public class GoogleMap {
                 System.out.println("Downloading image " + c + " out of " + total);
                 while (true) {
                     try {
-                        long startTime = System.currentTimeMillis();
                         saveImage(current.tileURL(), ("image_" + lonCounter + "_" + latCounter + ".jpg"));
                         images.add("image_" + lonCounter + "_" + latCounter + ".jpg");
-                        long endTime = System.currentTimeMillis();
-                        if ( proxyEnabled && (endTime - startTime) / 1000 > 2) {
-                            // more than 2 seconds to download a tile -> change proxy
-                            Proxy.setProxy();
-                        }
                         break;
                     } catch (Exception e) {
                         if (proxyEnabled)

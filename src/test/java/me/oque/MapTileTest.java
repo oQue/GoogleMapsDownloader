@@ -1,4 +1,7 @@
+package me.oque;
+
 import org.junit.Test;
+import me.oque.MapTile;
 
 import static org.junit.Assert.*;
 

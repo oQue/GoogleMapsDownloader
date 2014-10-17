@@ -1,3 +1,5 @@
+package me.oque;
+
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;

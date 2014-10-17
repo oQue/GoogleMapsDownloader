@@ -1,3 +1,5 @@
+package me.oque;
+
 public class MapTile {
 
     int x, y, z;
